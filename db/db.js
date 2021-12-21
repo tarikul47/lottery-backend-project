@@ -30,8 +30,8 @@ class MyDB {
     for (let i = 0; i < quantity; i++) {
       const ticket = this.create(username, price);
       result.push(ticket);
-      return result;
     }
+    return result;
   }
 
   /**
@@ -64,6 +64,7 @@ class MyDB {
     );
     return tickets;
   }
+
   /**
    *
    * @param {string} ticketId
@@ -97,14 +98,19 @@ class MyDB {
    * @returns array Tickets
    */
   draw(winnerCount) {
-    let indexes = new Array(winnerCount);
-    for (let i = 0; i < indexes.length; i++) {
-      let index = Math.floor(Math.random() * this.tickets.length);
-      if (!indexes.includes(index)) {
-        indexes.push(index);
+    let winnerIndexes = new Array(winnerCount);
+
+    let i = 0;
+    while (i < winnerCount) {
+      let winnerIndex = Math.floor(Math.random() * this.tickets.length);
+      console.log("index = ", winnerIndex);
+
+      if (!winnerIndexes.includes(winnerIndex)) {
+        winnerIndexes[i++] = winnerIndex;
+        continue;
       }
     }
-    const winners = indexes.map((index = this.tickets[index]));
+    const winners = winnerIndexes.map((index) => this.tickets[index]);
     return winners;
   }
 }
